@@ -210,6 +210,13 @@ pub struct CoreBPE {
 }
 
 impl CoreBPE {
+    pub fn new_with_special_tokens(&self, special_tokens: Vec<(String, usize)>) -> Result<Self> {
+        CoreBPE::new(
+            self.encoder.clone(),
+            HashMap::from_iter(special_tokens),
+            self.regex_tls[0].as_str(),
+        )
+    }
     fn _get_tl_regex(&self) -> &Regex {
         // See performance notes above for what this is about
         // It's also a little janky, please make a better version of it!
